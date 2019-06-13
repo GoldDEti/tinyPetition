@@ -7,16 +7,12 @@
   <body>
     <script src="https://unpkg.com/mithril@next/mithril.js"></script>
     <script>
-    var root = document.body
     var Hello = {
-    	    view: function() {
-    	        return m("main", [
-    	            m("h1", {class: "title"}, "Bienvenue dans l'application de sondage"),
-    	            m("a", {href: "#!/hello"}, "Page d'accueil"),
-    	        ])
-    	    }
+    	view: function() {
+    	        return m("h1", {class: "title"}, "Bienvenue dans l'application de sondage")
     	}
-    m.render(root,Hello);
+    }
+    m.render(document.body,Hello)
     </script>
 </body>
 </html>

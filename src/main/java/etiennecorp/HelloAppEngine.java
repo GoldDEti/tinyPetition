@@ -20,12 +20,12 @@ import com.googlecode.objectify.ObjectifyService;
 )
 public class HelloAppEngine extends HttpServlet {
 
-	utilisateur user;
+	Utilisateur user;
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) 
       throws IOException {
 	
-	user = new utilisateur("Soleau","Etienne","Titi");
+	user = new Utilisateur("Soleau","Etienne","Titi");
 	ObjectifyService.ofy().save().entities(user);
 	
     response.setContentType("text/plain");

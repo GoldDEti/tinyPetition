@@ -13,6 +13,6 @@ import com.googlecode.objectify.ObjectifyService;
 public class ObjectifyWebFilter extends ObjectifyFilter {
 	static {
 		ObjectifyService.register(Petition.class);
-        ObjectifyService.register(utilisateur.class);
+        ObjectifyService.register(Utilisateur.class);
 	}
 }
