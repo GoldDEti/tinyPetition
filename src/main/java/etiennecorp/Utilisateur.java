@@ -8,10 +8,10 @@ import com.googlecode.objectify.annotation.Index;
 @Index
 public class Utilisateur {
 
-	@Id Long id;
 	String name;
 	String firstName;
 	@Index String pseudo;
+	@Index String email;
 	
 	private Utilisateur(){};
 	
@@ -20,5 +20,10 @@ public class Utilisateur {
 		this.name = name;
 		this.firstName = firstName;
 		this.pseudo = pseudo;
+	}
+	
+	public void setEmail(String email)
+	{
+		this.email = email;
 	}
 }

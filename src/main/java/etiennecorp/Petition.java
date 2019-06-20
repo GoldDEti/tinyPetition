@@ -10,7 +10,7 @@ public class Petition {
 	@Id Long id;
 	@Index String name;
 	String description;
-	//utilisateur[] lstSignature;
+	@Index int nbSignature;
 
 	private Petition(){};
 	

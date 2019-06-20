@@ -14,5 +14,6 @@ public class ObjectifyWebFilter extends ObjectifyFilter {
 	static {
 		ObjectifyService.register(Petition.class);
         ObjectifyService.register(Utilisateur.class);
+        ObjectifyService.register(Signer.class);
 	}
 }
