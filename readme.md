@@ -1,40 +1,23 @@
-Dans le fichier readMe :
-Afficher des captures d'écrans "Kind" des google datastores utilisés
+Projet réalisé dans le cadre d'une application Cloud pour créer un site de pétition résistant à la charge
 
-Question contrôle : 
- - Ecrire les entités et les instanciées un fois :
-    class Pet 
-     Kind: Pet
-      Key: UniqueId
-     Owner: string
-     sign: List<string>
-    nb: Int
-    
-    e = n.Entity(Pet, "Pet1")
-    e.setproperty(Owner) ="u1"
-    e.setproperty(sign) = ["U2,U4,U6"]
+Pour cela trois entités ont été créés :
 
- - Afficher les pétitions avec une requête gql pour lequels j'ai voté
-    Select * from Pet
-        Where Sign="Me"
- - Afficher les pétitions les plus populaires avec une requête gql 
-    Select * from Pet
-        order by Asc nb
-        unit 100
- - Pour calculer le speedup d'ajouté des processeurs :
-    Loi d'Amdahl
- - Ecrire le server REST appelé par le contrôleur   
-   @API    
-    Class PetEndPoint
-        Method
-        Top100() {
-            d = factory.getStore()
-            q = d.query()
-            iter = q.fetch()
-            return iter;
-        }
- - Lors d'un accès en zig zag merge join on va directement à la bonne clé dans chaque colonne
-    Le zig zag merge join ne fonctionne qu'avec les égalités
- - Pour le sharding -> hybride mais pour google datastore -> horizontal
- ACID -> atomic constitancy durability -> si oui alors garantie l'ordre d'arrivé et de fin des transactions dans le datastore
-Les variables de sessions du conteneur de servlet sont stockés
+Petition:
+
+[imagePetition](/petition.png)
+
+Utilisateur:
+
+[imageUtilisateur](/utilisateur.png)
+
+Signer (représentant la signature d'un utilisateur pour une pétition)
+Celle-ci est composé de l'id de la pétition ainsi que de celui de l'utilisateur :
+
+[imageSigner](/signer.png)
+
+
+Malheusement en raison d'un manque d'organisation je n'ai pas pu terminer le projet.
+
+Lien de l'application : 
+
+https://premierprojet-233613.appspot.com/
