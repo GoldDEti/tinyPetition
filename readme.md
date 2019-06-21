@@ -4,16 +4,16 @@ Pour cela trois entités ont été créés :
 
 Petition:
 
-[imagePetition](/petition.png)
+[imagePetition](https://github.com/GoldDEti/tinyPetition/blob/master/petition.png)
 
 Utilisateur:
 
-[imageUtilisateur](/utilisateur.png)
+[imageUtilisateur](https://github.com/GoldDEti/tinyPetition/blob/master/utilisateur.png)
 
 Signer (représentant la signature d'un utilisateur pour une pétition)
 Celle-ci est composé de l'id de la pétition ainsi que de celui de l'utilisateur :
 
-[imageSigner](/signer.png)
+[imageSigner](https://github.com/GoldDEti/tinyPetition/blob/master/signer.png)
 
 
 Malheusement en raison d'un manque d'organisation je n'ai pas pu terminer le projet.
