@@ -7,17 +7,18 @@ import com.googlecode.objectify.annotation.Index;
 @Entity
 @Index
 public class Signer {
-	@Id Long id;
+	@Id
+	Long id;
 	@Index
-	String email;
+	String idUser;
 	@Index
-	String sondage;
+	String idPetition;
 
 	public Signer() {
 	}
 
-	public Signer(String email, String sondage) {
-		this.email = email;
-		this.sondage = sondage;
+	public Signer(String idUser, String idPetition) {
+		this.idUser = idUser;
+		this.idPetition = idPetition;
 	}
 }

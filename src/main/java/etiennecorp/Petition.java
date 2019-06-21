@@ -7,16 +7,21 @@ import com.googlecode.objectify.annotation.Index;
 @Entity
 @Index
 public class Petition {
-	@Id Long id;
-	@Index String name;
+	@Id
+	Long id;
+	String name;
 	String description;
-	@Index int nbSignature;
+	@Index
+	int nbSignature;
+	@Index
+	String idCreateur;
 
-	public Petition(){};
-	
-	public Petition(String name, String description)
-	{
+	public Petition() {
+	};
+
+	public Petition(String name, String description, String idCreateur) {
 		this.name = name;
 		this.description = description;
+		this.idCreateur = idCreateur;
 	}
 }

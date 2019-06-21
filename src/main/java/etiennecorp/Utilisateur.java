@@ -16,11 +16,12 @@ public class Utilisateur {
 	
 	private Utilisateur(){};
 	
-	public Utilisateur(String name, String firstName, String pseudo)
+	public Utilisateur(String name, String firstName, String pseudo, String email)
 	{
 		this.name = name;
 		this.firstName = firstName;
 		this.pseudo = pseudo;
+		this.email = email;
 	}
 	
 	public void setEmail(String email)

@@ -1,6 +1,7 @@
 package etiennecorp;
 
-import java.io.Console;
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.io.IOException;
 
 import javax.servlet.annotation.WebServlet;
@@ -8,65 +9,42 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.FetchOptions;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.PreparedQuery.TooManyResultsException;
-import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.CompositeFilter;
-import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
-import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 
+@WebServlet(name = "UtilisateurControler", urlPatterns = { "/utilisateurapi" })
+public class UtilisateurControler extends HttpServlet {
 
+	private Utilisateur user;
+	private UserService userService;
 
-@WebServlet(
-	    name = "UtilisateurControler",
-	    urlPatterns = {"/hello"}
-	)
-public class UtilisateurControler extends HttpServlet{
-
-	private Entity user;
-	private DatastoreService datastore;
 	public UtilisateurControler() {
-		datastore = DatastoreServiceFactory.getDatastoreService();
+		userService = UserServiceFactory.getUserService();
 	};
-	
+
 	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) 
-		      throws IOException {
-		if(getUserFromRequest())
-		{
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Filter filt = new FilterPredicate("Name", FilterOperator.EQUAL, request.getParameter("name"));
+		Filter filt2 = new FilterPredicate("FirstName", FilterOperator.EQUAL, request.getParameter("firstname"));
+		Filter filt3 = new FilterPredicate("email", FilterOperator.EQUAL, userService.getCurrentUser().getEmail());
+		Object user = ofy().load().type(Signer.class).filter(filt).filter(filt2).filter(filt3).first().now();
+		if (user != null) {
 			response.setStatus(200);
-		}
-		else
-		{
+		} else {
 			response.setStatus(400);
 		}
 	}
-	public boolean getUserFromRequest()
-	{
-		Filter filt = new FilterPredicate("Name",FilterOperator.EQUAL,"Soleau");
-		Query q = new Query("utilisateur").setFilter(filt);
-		UserService userService = UserServiceFactory.getUserService();
-		System.out.println(userService.getCurrentUser().getUserId());
-		user = datastore.prepare(q).asSingleEntity();
-		if(user != null)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+
+	@Override
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		String name = req.getParameter("name");
+		String firstName = req.getParameter("firstName");
+		String pseudo = req.getParameter("pseudo");
+		String email = userService.getCurrentUser().getEmail();
+		user = new Utilisateur(name, firstName, pseudo, email);
+		Object r = ofy().save().entity(user);
 	}
 }

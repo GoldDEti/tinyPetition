@@ -27,45 +27,44 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
-
-
-@WebServlet(
-	    name = "UtilisateurControler",
-	    urlPatterns = {"/petitionapi"}
-	)
-public class PetitionServlet extends HttpServlet{
+@WebServlet(name = "PetitionServlet", urlPatterns = { "/petitionapi" })
+public class PetitionServlet extends HttpServlet {
 
 	private Petition pet;
 	private Entity petition;
 	private DatastoreService datastore;
+
 	public PetitionServlet() {
 		datastore = DatastoreServiceFactory.getDatastoreService();
 	};
-	
+
 	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) 
-		      throws IOException {
-		
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		if (getPetition(request.getParameter("petitionId"))) {
 			response.setStatus(200);
 		} else {
 			response.setStatus(400);
 		}
 	}
-	public boolean getPetition(String idPetition)
-	{
-		Filter filt = new FilterPredicate("id",FilterOperator.EQUAL,idPetition);
+
+	public boolean getPetition(String idPetition) {
+		Filter filt = new FilterPredicate("id", FilterOperator.EQUAL, idPetition);
 		Query q = new Query("petition").setFilter(filt);
 		UserService userService = UserServiceFactory.getUserService();
-		System.out.println(userService.getCurrentUser().getUserId());
 		petition = datastore.prepare(q).asSingleEntity();
-		if(petition!= null)
-		{
+		if (petition != null) {
 			return true;
-		}
-		else
-		{
+		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public void doPost(HttpServletRequest request, HttpServletResponse response) {
+		String idCreator = request.getParameter("idcreator");
+		String name = request.getParameter("name");
+		String description = request.getParameter("desc");
+		pet = new Petition(name, description, idCreator);
+		Object r = ofy().save().entity(pet);
 	}
 }
