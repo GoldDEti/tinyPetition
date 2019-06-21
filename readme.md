@@ -13,7 +13,7 @@ Utilisateur:
 Signer (représentant la signature d'un utilisateur pour une pétition)
 Celle-ci est composé de l'id de la pétition ainsi que de celui de l'utilisateur :
 
-[imageSigner](signer.png)
+![imageSigner](signer.png)
 
 
 Malheusement en raison d'un manque d'organisation je n'ai pas pu terminer le projet.
