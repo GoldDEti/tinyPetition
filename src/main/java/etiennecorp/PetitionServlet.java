@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
-
+import static com.googlecode.objectify.ObjectifyService.ofy;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -31,36 +31,35 @@ import com.google.appengine.api.users.UserServiceFactory;
 
 @WebServlet(
 	    name = "UtilisateurControler",
-	    urlPatterns = {"/hello"}
+	    urlPatterns = {"/petitionapi"}
 	)
-public class UtilisateurControler extends HttpServlet{
+public class PetitionServlet extends HttpServlet{
 
-	private Entity user;
+	private Petition pet;
+	private Entity petition;
 	private DatastoreService datastore;
-	public UtilisateurControler() {
+	public PetitionServlet() {
 		datastore = DatastoreServiceFactory.getDatastoreService();
 	};
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 
 		      throws IOException {
-		if(getUserFromRequest())
-		{
+		
+		if (getPetition(request.getParameter("petitionId"))) {
 			response.setStatus(200);
-		}
-		else
-		{
+		} else {
 			response.setStatus(400);
 		}
 	}
-	public boolean getUserFromRequest()
+	public boolean getPetition(String idPetition)
 	{
-		Filter filt = new FilterPredicate("Name",FilterOperator.EQUAL,"Soleau");
-		Query q = new Query("utilisateur").setFilter(filt);
+		Filter filt = new FilterPredicate("id",FilterOperator.EQUAL,idPetition);
+		Query q = new Query("petition").setFilter(filt);
 		UserService userService = UserServiceFactory.getUserService();
 		System.out.println(userService.getCurrentUser().getUserId());
-		user = datastore.prepare(q).asSingleEntity();
-		if(user != null)
+		petition = datastore.prepare(q).asSingleEntity();
+		if(petition!= null)
 		{
 			return true;
 		}

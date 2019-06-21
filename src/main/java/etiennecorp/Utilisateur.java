@@ -8,6 +8,7 @@ import com.googlecode.objectify.annotation.Index;
 @Index
 public class Utilisateur {
 
+	@Id long id;
 	String name;
 	String firstName;
 	@Index String pseudo;

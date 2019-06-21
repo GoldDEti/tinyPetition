@@ -12,7 +12,7 @@ public class Petition {
 	String description;
 	@Index int nbSignature;
 
-	private Petition(){};
+	public Petition(){};
 	
 	public Petition(String name, String description)
 	{

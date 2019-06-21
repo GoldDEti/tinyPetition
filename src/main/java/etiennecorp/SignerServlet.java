@@ -1,6 +1,5 @@
 package etiennecorp;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
@@ -13,16 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import static com.googlecode.objectify.ObjectifyService.ofy;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 
 @WebServlet(
     name = "SignerApi",
-    urlPatterns = "/userapi"
+    urlPatterns = "/signerapi"
 )
 public class SignerServlet extends HttpServlet {
-
-	Signer signature;
+	private Signer signature;
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 	  String email = UserServiceFactory.getUserService().getCurrentUser().getEmail();
@@ -41,10 +37,10 @@ public class SignerServlet extends HttpServlet {
   }
   
   @Override
-  public void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+  public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 	  String email = UserServiceFactory.getUserService().getCurrentUser().getEmail();
 	  String sondage = req.getParameter("sondage");
 	  Signer s = new Signer(email,sondage);
-	  s = ofy().save().entity(s).now();
+	  Object r = ofy().save().entity(s);
   }
 }
